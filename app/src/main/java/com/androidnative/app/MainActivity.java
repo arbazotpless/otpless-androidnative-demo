@@ -17,11 +17,13 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     OtplessView otplessView;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+       Button button = findViewById(R.id.button);
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
@@ -30,21 +32,23 @@ public class MainActivity extends AppCompatActivity {
             extras.put("method", "get");
             final JSONObject params = new JSONObject();
             params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
-
-            //parameter to add updated package name and also makes changes in manifest.xml file
-            params.put("login_uri","com.androidnative.app");
-            //parameter to add updated package name and also makes changes in manifest.xml file
-
             extras.put("params", params);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         otplessView.setCallback(this::onOtplessCallback, extras);
-        otplessView.showOtplessLoginPage(extras, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
 
-    }
+        //calling otpless loginpage on button click
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otplessView.showOtplessLoginPage();
+            }
+        });
 
+
+    }
 
 
     private void onOtplessCallback(OtplessResponse response) {
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Otpless", "token: " + token);
         }
     }
+
 
     @Override
     protected void onNewIntent(Intent intent) {
