@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
@@ -18,14 +17,11 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     OtplessView otplessView;
-    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-       Button button1 = findViewById(R.id.button);
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
@@ -34,28 +30,22 @@ public class MainActivity extends AppCompatActivity {
             extras.put("method", "get");
             final JSONObject params = new JSONObject();
             params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+
+            //parameter to add updated package name and also makes changes in manifest.xml file
+            params.put("login_uri","com.androidnative.app");
+            //parameter to add updated package name and also makes changes in manifest.xml file
+
             extras.put("params", params);
-
-            //paramter to enable autoclick//
-            extras.put("uxmode", "anf");
-            //paramter to enable autoclick//
-
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         otplessView.setCallback(this::onOtplessCallback, extras);
-        otplessView.showOtplessFab(false);
+        otplessView.showOtplessLoginPage(extras, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
 
-        //calling otpless floater on a button click
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                otplessView.startOtpless(extras);
-            }
-        });
-
     }
+
+
 
     private void onOtplessCallback(OtplessResponse response) {
         if (response.getErrorMessage() != null) {
@@ -64,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
             final String token = response.getData().optString("token");
 // todo token verification with api
             Log.d("Otpless", "token: " + token);
-            Toast.makeText(this, "Token : " + token, Toast.LENGTH_SHORT).show();
         }
     }
 
