@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
@@ -15,15 +16,20 @@ import com.otpless.main.OtplessView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.AsyncTask;
+
+
 public class MainActivity extends AppCompatActivity {
     OtplessView otplessView;
     Button button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        Button button = findViewById(R.id.button);
+        final String token;
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
@@ -31,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             extras.put("method", "get");
             final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); // Replace the cid value with your CID value which is provided in the docs
             extras.put("params", params);
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -43,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 otplessView.showOtplessLoginPage();
+
             }
         });
 
@@ -55,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
         if (response.getErrorMessage() != null) {
 // todo error handing
         } else {
-            final String token = response.getData().optString("token");
+           final String token = response.getData().optString("token");
 // todo token verification with api
             Log.d("Otpless", "token: " + token);
+            Toast.makeText(this, "Token : " + token, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(), SecondActivity.class);
+            i.putExtra("passing_token", token);
+            startActivity(i);
         }
     }
 
@@ -75,4 +87,9 @@ public class MainActivity extends AppCompatActivity {
         if (otplessView.onBackPressed()) return;
         super.onBackPressed();
     }
+
 }
+
+
+
+
