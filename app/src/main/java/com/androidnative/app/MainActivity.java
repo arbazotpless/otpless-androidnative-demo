@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
@@ -31,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             extras.put("method", "get");
             final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); // Replace the cid value with your CID value which is provided in the docs
+
+            //parameter to add updated package name and also update package name in manifest.xml file in scheme
+            params.put("login_uri","com.androidnative.app");
+
             extras.put("params", params);
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -58,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
             final String token = response.getData().optString("token");
 // todo token verification with api
             Log.d("Otpless", "token: " + token);
+            Toast.makeText(this, "Token : " + token, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(), SecondActivity.class);
+            i.putExtra("passing_token", token);
+            startActivity(i);
         }
     }
 
