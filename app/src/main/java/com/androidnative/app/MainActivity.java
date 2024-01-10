@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             extras.put("method", "get");
             final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); // Replace the cid with your CID value which is provided in the docs
             extras.put("params", params);
 
             //paramter to enable autoclick//
-            extras.put("uxmode", "anf");
+            params.put("uxmode", "anf");
             //paramter to enable autoclick//
 
         } catch (JSONException e) {
@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 // todo token verification with api
             Log.d("Otpless", "token: " + token);
             Toast.makeText(this, "Token : " + token, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(), SecondActivity.class);
+            i.putExtra("passing_token", token);
+            startActivity(i);
         }
     }
 
