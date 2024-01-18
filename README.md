@@ -94,7 +94,7 @@ import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
 ```
 - Add this code to your onCreate() method to initialize and load OTPLESS Sign in.
-```java
+```kotlin
 private lateinit var otplessView: OtplessView
     private lateinit var button: Button
 
@@ -119,7 +119,7 @@ private lateinit var otplessView: OtplessView
         } catch (e: JSONException) {
             throw RuntimeException(e)
         }
-        otplessView.setCallback({ onOtplessCallback(it, extras) }, extras)
+        otplessView.setCallback(this::onOtplessCallback, extras)
         otplessView.showOtplessFab(false)
         otplessView.verifyIntent(intent)
 
