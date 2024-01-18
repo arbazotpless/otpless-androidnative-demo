@@ -85,6 +85,70 @@ otplessView.showOtplessLoginPage(extras, this::onOtplessCallback)
 // very important to call here, verification is done on low memory recreate case
 otplessView.verifyIntent(intent)
 ```
+4. **Handle Callback**
+
+- Add the code to handle callback from OTPLESS sdk.
+
+`Java`
+
+```java
+private void onOtplessCallback(OtplessResponse response) {
+if (response.getErrorMessage() != null) {
+// todo error handing
+} else {
+final String token = response.getData().optString("token");
+// todo token verification with api
+Log.d("Otpless", "token: " + token);
+  }
+}
+```
+
+`Kotlin`
+
+```kotlin
+private fun onOtplessCallback(response: OtplessResponse) {
+if (response.errorMessage != null) {
+// todo error handing
+} else {
+val token = response.data.optString("token")
+// todo token verification with api
+Log.d("Otpless", "token: $token")
+	}
+}
+```
+- Add this code to your onNewIntent() method.
+
+`Java`
+
+```java
+if (otplessView != null) {
+  otplessView.verifyIntent(intent);
+}
+```
+
+`Kotlin`
+
+```kotlin
+otplessView.verifyIntent(intent)
+```
+
+5. **Handle Backpress**
+
+- Add this code to your onBackPressed() method to handle backpress.
+
+`Java`
+
+```java
+// make sure you call this code before super.onBackPressed();
+if (otplessView.onBackPressed()) return;
+```
+
+`Kotlin`
+
+```kotlin
+// make sure you call this code before super.onBackPressed()
+if (otplessView.onBackPressed()) return
+```
 
 
 # Thank You
