@@ -156,9 +156,9 @@ if (otplessView.onBackPressed()) return
 
 ```java
 if (Utility.isWhatsAppInstalled(this)) {
-    Toast.makeText(this, "WhatsApp is installed on the device", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "WhatsApp is installed", Toast.LENGTH_SHORT).show();
 } else {
-    Toast.makeText(this, "WhatsApp is not installed on the device", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "WhatsApp is not installed", Toast.LENGTH_SHORT).show();
 }
 
 # Thank You
