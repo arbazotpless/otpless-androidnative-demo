@@ -96,7 +96,7 @@ if (Utility.isWhatsAppInstalled(this)) {
 } else {
     Toast.makeText(this, "WhatsApp is not installed on the device", Toast.LENGTH_SHORT).show();
 }
-
+```
 
 `Kotlin`
 ```kotlin
@@ -150,6 +150,7 @@ if (Utility.isWhatsAppInstalled(this)) {
 } else {
     Toast.makeText(this, "WhatsApp is not installed on the device", Toast.LENGTH_SHORT).show();
 }
+```
 
 4. **Handle Callback**
 
