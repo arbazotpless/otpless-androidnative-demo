@@ -150,6 +150,17 @@ if (otplessView.onBackPressed()) return;
 if (otplessView.onBackPressed()) return
 ```
 
+```java
+// This code will be used to detect the WhatsApp installed status on the user's device
+// If you are using WHATSAPP login, it's required to add this code to hide the OTPless functionality
+
+```java
+if (Utility.isWhatsAppInstalled(this)) {
+    Toast.makeText(this, "WhatsApp is installed", Toast.LENGTH_SHORT).show();
+} else {
+    Toast.makeText(this, "WhatsApp is not installed", Toast.LENGTH_SHORT).show();
+}
+
 
 # Thank You
 
