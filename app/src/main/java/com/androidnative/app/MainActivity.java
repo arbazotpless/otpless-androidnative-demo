@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
+import com.otpless.utils.Utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
        Button button = findViewById(R.id.button);
         final String token;
+
+        //******************************************************** */
+        //This function will tell if WhatsApp is Installed or not.
+        // If you are using only whatsapp authentication then you can hide visibility of Login button using this function,
+        // if user doesn't have whatsapp installed on device.
+        //******************************************************** */
+
+        if (Utility.isWhatsAppInstalled(this)){
+            Toast.makeText(this, "whatsapp is installed in device", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "Whatsapp is not installed in device", Toast.LENGTH_SHORT).show();
+        }
+
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
