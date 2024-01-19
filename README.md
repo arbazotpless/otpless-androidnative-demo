@@ -86,18 +86,18 @@ import com.otpless.main.OtplessView;
 
     }
 ```
-```
+- ⚫️ This code will be used to detect the WhatsApp installed status on the user's device.
+
 ```java
 // This code will be used to detect the WhatsApp installed status on the user's device
 // If you are using WHATSAPP login, it's required to add this code to hide the OTPless functionality
 
-```java
 if (Utility.isWhatsAppInstalled(this)) {
     Toast.makeText(this, "WhatsApp is installed on the device", Toast.LENGTH_SHORT).show();
 } else {
     Toast.makeText(this, "WhatsApp is not installed on the device", Toast.LENGTH_SHORT).show();
 }
-```
+
 
 `Kotlin`
 ```kotlin
