@@ -16,6 +16,8 @@ import com.otpless.main.OtplessView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.otpless.utils.Utility;
+
 public class MainActivity extends AppCompatActivity {
     OtplessView otplessView;
     Button button;
@@ -26,6 +28,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
        Button button = findViewById(R.id.button);
 
+        //******************************************************** */
+        //This function will tell if WhatsApp is Installed or not.
+        // If you are using only whatsapp authentication then you can hide visibility of Login button using this function,
+        // if user doesn't have whatsapp installed on device.
+        //******************************************************** */
+
+        if (Utility.isWhatsAppInstalled(this)){
+            Toast.makeText(this, "whatsapp is installed in device", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this, "Whatsapp is not installed in device", Toast.LENGTH_SHORT).show();
+        }
+
+
+
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
         final JSONObject extras = new JSONObject();
@@ -34,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
             final JSONObject params = new JSONObject();
             params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); // Replace the cid value with your CID value which is provided in the docs
 
+            //******************************************************** */
             //parameter to add updated package name and also update package name in manifest.xml file in scheme
+            //******************************************************** */
             params.put("login_uri","com.androidnative.app");
 
             extras.put("params", params);
@@ -44,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
         otplessView.setCallback(this::onOtplessCallback, extras);
         otplessView.verifyIntent(getIntent());
 
+
+        //******************************************************** */
         //calling otpless loginpage on button click
+        // ******************************************************** */
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
