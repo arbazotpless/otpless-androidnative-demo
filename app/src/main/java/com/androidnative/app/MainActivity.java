@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
             //paramter to enable autoclick//
             params.put("uxmode", "anf");
-            //paramter to enable autoclick//
+
 
         } catch (JSONException e) {
             throw new RuntimeException(e);
