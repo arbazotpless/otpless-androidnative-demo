@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.otpless.dto.OtplessRequest;
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       Button button = findViewById(R.id.button);
 
         //******************************************************** */
         //This function will tell if WhatsApp is Installed or not.
@@ -41,48 +41,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        final JSONObject extras = new JSONObject();
-        try {
-            extras.put("method", "get");
-            final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); // Replace the cid value with your CID value which is provided in the docs
-
-            //******************************************************** */
-            //parameter to add updated package name and also update package name in manifest.xml file in scheme
-            //******************************************************** */
-            params.put("login_uri","com.androidnative.app");
-
-            extras.put("params", params);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        otplessView.setCallback(this::onOtplessCallback, extras);
+        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1")
+                .setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q")
+                .addExtras("login_uri","com.androidnativee.apppp");
+        otplessView.setCallback(request, this::onOtplessCallback);
+        otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
-
-
-        //******************************************************** */
-        //calling otpless loginpage on button click
-        // ******************************************************** */
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                otplessView.showOtplessLoginPage();
-            }
-        });
-
 
     }
 
 
     private void onOtplessCallback(OtplessResponse response) {
         if (response.getErrorMessage() != null) {
-// todo error handing
+    // todo error handing
         } else {
             final String token = response.getData().optString("token");
-// todo token verification with api
+    // todo token verification with api
             Log.d("Otpless", "token: " + token);
             Toast.makeText(this, "Token : " + token, Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), SecondActivity.class);

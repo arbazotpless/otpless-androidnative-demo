@@ -32,10 +32,15 @@
 
                 <data
                     android:host="otpless"
-                    android:scheme="com.androidnative.app.otpless" />
+                    android:scheme="com.androidnativee.apppp.otpless" />
             </intent-filter>
 
         </activity>
+
+        <activity
+            android:name=".SecondActivity"
+            android:exported="false"
+            android:launchMode="singleTop"/>
     </application>
 
 </manifest>
