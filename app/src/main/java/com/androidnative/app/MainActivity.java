@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.otpless.dto.OtplessRequest;
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
@@ -39,27 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        final JSONObject extras = new JSONObject();
-        try {
-            extras.put("method", "get");
-            final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); // Replace the cid value with your CID value which is provided in the docs
-            params.put("crossButtonHidden", true);
-            extras.put("params", params);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        otplessView.setCallback(this::onOtplessCallback, extras);
-        otplessView.showOtplessLoginPage(extras, this::onOtplessCallback);
+        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1")  // replace app id with your appid provided in documentation
+                .setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");                       // replace Cid with your Cid provided in documentation
+        otplessView.setCallback(request, this::onOtplessCallback);
+        otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
     }
 
     private void onOtplessCallback(OtplessResponse response) {
         if (response.getErrorMessage() != null) {
-// todo error handing
+    // todo error handing
         } else {
             final String token = response.getData().optString("token");
-// todo token verification with api
+    // todo token verification with api
             Log.d("Otpless", "token: " + token);
             Toast.makeText(this, "Token : " + token, Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), SecondActivity.class);
