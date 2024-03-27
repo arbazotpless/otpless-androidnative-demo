@@ -14,6 +14,7 @@ import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
 import com.otpless.utils.Utility;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,25 +42,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
         final JSONObject extras = new JSONObject();
         try {
             extras.put("method", "get");
             final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); // Replace the cid with your CID value which is provided in the docs
+            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");   // replace cid with your cid provided in documentation
+            params.put("appId", "ENUZ3TQ27B1GXG85FQQN");             // replace appid with your appid provided in documentation
+            params.put("uxmode", "anf");                             // this parameter is for autoclick
             extras.put("params", params);
-
-            //paramter to enable autoclick//
-            params.put("uxmode", "anf");
-
-
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        otplessView.setCallback(this::onOtplessCallback, extras);
         otplessView.showOtplessFab(false);
+        otplessView.setCallback(this::onOtplessCallback, extras);
         otplessView.verifyIntent(getIntent());
+
+
 
         //calling otpless floater on a button click
         button1.setOnClickListener(new View.OnClickListener() {
