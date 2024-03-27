@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1")
-                .setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1")  // replace app id with your appid provided in documentation
+                .setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");                       // replace Cid with your Cid provided in documentation
         otplessView.setCallback(request, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
 
