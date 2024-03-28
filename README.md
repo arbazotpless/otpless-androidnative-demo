@@ -5,7 +5,7 @@ Integrating One Tap OTPLESS Sign In into your React Native Application using our
 1. Install **OTPless SDK** Dependency
 - In your app's build.gradle file, insert the following line into the dependencies section and sync your gradle
 ```gradle
-implementation 'io.github.otpless-tech:otpless-android-sdk:2.1.8'
+implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.4'
 ```
 
 2. Configure **AndroidManifest.xml**
@@ -55,23 +55,16 @@ import com.otpless.main.OtplessView;
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        final JSONObject extras = new JSONObject();
-        try {
-            extras.put("method", "get");
-            final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");  //add your own CID value (to get cid value visit otpless.com/platforms/android)
-            extras.put("params", params);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        otplessView.setCallback(this::onOtplessCallback, extras);
+        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1")  // replace app id with your appid provided in documentation
+                .setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");                 // replace Cid with your Cid provided in documentation
+        otplessView.setCallback(request, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
 
         //calling otpless loginpage on button click
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                otplessView.showOtplessLoginPage();
+                otplessView.showOtplessLoginPage(request, response -> onOtplessCallback(response));
             }
         });
 
@@ -110,19 +103,17 @@ import com.otpless.main.OtplessView;
         button = findViewById(R.id.button)
 
         // Initialise OtplessView
-        otplessView = OtplessManager.getInstance().getOtplessView(this)
-        val extras = JSONObject().also {
-        	it.put("method", "get")
-        	val params = JSONObject()
-        	params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q")  //add your own CID value (to get cid value visit otpless.com/platforms/android)
-        	it.put("params", params)
-        }
-        otplessView.setCallback(this::onOtplessCallback, extras)
-        otplessView.verifyIntent(intent)
+	otplessView = OtplessManager.getInstance().getOtplessView(this)
+	OtplessRequest request =  OtplessRequest("YOUR_APPID")  // replace with your appid provided in documentation
+			.setCid("YOUR_CID")                    // replace with your cid provided in documentation
+	otplessView.setCallback(request, this::onOtplessCallback)
+	otplessView.verifyIntent(getIntent())
 
         // calling otpless login page on button click
         button.setOnClickListener {
-            otplessView.showOtplessLoginPage()
+            otplessView.showOtplessLoginPage(request) { response ->
+    onOtplessCallback(response)
+}
         }
     }
 }
