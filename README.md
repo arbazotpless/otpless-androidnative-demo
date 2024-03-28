@@ -53,8 +53,8 @@ import com.otpless.main.OtplessView;
 
        // Initialise OtplessView
 	otplessView = OtplessManager.getInstance().getOtplessView(this);
-	OtplessRequest request = new OtplessRequest("ENUZ3TQ27B1GXG85FQQN")
-			.setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+	OtplessRequest request = new OtplessRequest("YOUR_APPID")  // replace app id with your appid provided in documentation
+			.setCid("YOUR_CID");	     // replace cid with your cid provided in documentation
               		.addExtras("login_uri","com.androidnativee.apppp");   // replcae with updated package-id of your android project
 	otplessView.setCallback(request, this::onOtplessCallback);
 	otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
@@ -91,8 +91,8 @@ import com.otpless.main.OtplessView;
 
         // Initialise OtplessView
 	otplessView = OtplessManager.getInstance().getOtplessView(this)
-	OtplessRequest request =  OtplessRequest("YOUR_APPID")
-			.setCid("YOUR_CID")
+	OtplessRequest request =  OtplessRequest("YOUR_APPID")  // replace app id with your app id provided in documentation
+			.setCid("YOUR_CID")			// replace cid with your cid provided in documentation
 			.addExtras("login_uri","com.androidnativee.apppp");   // replcae with updated package-id of your android project
 	otplessView.setCallback(request, this::onOtplessCallback)
 	otplessView.showOtplessLoginPage(request, this::onOtplessCallback)
