@@ -48,8 +48,8 @@ import com.otpless.main.OtplessView;
 OtplessView otplessView;
 // Initialise OtplessView
 otplessView = OtplessManager.getInstance().getOtplessView(this);
-OtplessRequest request = new OtplessRequest("ENUZ3TQ27B1GXG85FQQN")
-		.setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+OtplessRequest request = new OtplessRequest("YOUR_APPID")  // replace app id with your appid provided in documentation
+		.setCid("YOUR_CID");         // replace cid with your cid provided in documentation
 otplessView.setCallback(request, this::onOtplessCallback);
 otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
 otplessView.verifyIntent(getIntent());
@@ -79,8 +79,8 @@ import com.otpless.main.OtplessView;
 private lateinit var otplessView: OtplessView
 // Initialise OtplessView
 otplessView = OtplessManager.getInstance().getOtplessView(this)
-OtplessRequest request =  OtplessRequest("ENUZ3TQ27B1GXG85FQQN")
-		.setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q")
+OtplessRequest request =  OtplessRequest("YOUR_APPID")  // replace app id with your appid provided in documentation
+		.setCid("YOUR_CID")			// replace cid with your cid provided in documentation
 otplessView.setCallback(request, this::onOtplessCallback)
 otplessView.showOtplessLoginPage(request, this::onOtplessCallback)
 otplessView.verifyIntent(getIntent())
