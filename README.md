@@ -5,7 +5,7 @@ Integrating One Tap OTPLESS Sign In into your React Native Application using our
 1. Install **OTPless SDK** Dependency
 - In your app's build.gradle file, insert the following line into the dependencies section and sync your gradle
 ```gradle
-implementation 'io.github.otpless-tech:otpless-android-sdk:2.1.8'
+implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.4'
 ```
 
 2. Configure **AndroidManifest.xml**
@@ -21,7 +21,7 @@ implementation 'io.github.otpless-tech:otpless-android-sdk:2.1.8'
 <category android:name="android.intent.category.BROWSABLE" />
 <data
 	android:host="otpless"
-	android:scheme= "com.androidnative.app.otpless"/> //remove the application id and add the login uri which you are passing
+	android:scheme= "com.androidnativee.apppp.otpless"/> //remove the application id and add the login uri which you are passing
 </intent-filter>
 ```
 
@@ -51,25 +51,14 @@ import com.otpless.main.OtplessView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialise OtplessView
-        otplessView = OtplessManager.getInstance().getOtplessView(this);
-        final JSONObject extras = new JSONObject();
-        try {
-            extras.put("method", "get");
-            final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
-
-            //parameter to add updated package name and also makes changes in manifest.xml file
-            params.put("login_uri","com.androidnative.app");
-            //parameter to add updated package name and also makes changes in manifest.xml file
-
-            extras.put("params", params);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        otplessView.setCallback(this::onOtplessCallback, extras);
-        otplessView.showOtplessLoginPage(extras, this::onOtplessCallback);
-        otplessView.verifyIntent(getIntent());
+       // Initialise OtplessView
+	otplessView = OtplessManager.getInstance().getOtplessView(this);
+	OtplessRequest request = new OtplessRequest("ENUZ3TQ27B1GXG85FQQN")
+			.setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+              		.addExtras("login_uri","com.androidnativee.apppp");   // replcae with updated package-id of your android project
+	otplessView.setCallback(request, this::onOtplessCallback);
+	otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
+	otplessView.verifyIntent(getIntent());
 
     }
 ```
@@ -101,24 +90,13 @@ import com.otpless.main.OtplessView;
         setContentView(R.layout.activity_main)
 
         // Initialise OtplessView
-        otplessView = OtplessManager.getInstance().getOtplessView(this)
-        val extras = JSONObject()
-        try {
-            extras.put("method", "get")
-            val params = JSONObject()
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q")
-
-            // parameter to add updated package name and also makes changes in manifest.xml file
-            params.put("login_uri", "com.androidnative.app")
-            // parameter to add updated package name and also makes changes in manifest.xml file
-
-            extras.put("params", params)
-        } catch (e: JSONException) {
-            throw RuntimeException(e)
-        }
-        otplessView.setCallback(this::onOtplessCallback, extras)
-        otplessView.showOtplessLoginPage(extras) { result -> onOtplessCallback(result, extras) }
-        otplessView.verifyIntent(intent)
+	otplessView = OtplessManager.getInstance().getOtplessView(this)
+	OtplessRequest request =  OtplessRequest("YOUR_APPID")
+			.setCid("YOUR_CID")
+			.addExtras("login_uri","com.androidnativee.apppp");   // replcae with updated package-id of your android project
+	otplessView.setCallback(request, this::onOtplessCallback)
+	otplessView.showOtplessLoginPage(request, this::onOtplessCallback)
+	otplessView.verifyIntent(getIntent())
     }
 ```
 
