@@ -5,7 +5,7 @@ Integrating One Tap OTPLESS Sign In into your React Native Application using our
 1. Install **OTPless SDK** Dependency
 - In your app's build.gradle file, insert the following line into the dependencies section and sync your gradle
 ```gradle
-implementation 'io.github.otpless-tech:otpless-android-sdk:2.1.8'
+implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.3'
 ```
 
 2. Configure **AndroidManifest.xml**
@@ -62,18 +62,15 @@ import com.otpless.main.OtplessView;
         try {
             extras.put("method", "get");
             final JSONObject params = new JSONObject();
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q"); //add your own CID value (to get cid value visit otpless.com/platforms/android)
+            params.put("cid", "YOUR_CID");   
+            params.put("appId", "YOUR_APPID");            
+            params.put("uxmode", "anf");         // this parameter is for autoclick
             extras.put("params", params);
-
-            //paramter to enable autoclick//
-            extras.put("uxmode", "anf");
-            //paramter to enable autoclick//
-
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        otplessView.setCallback(this::onOtplessCallback, extras);
         otplessView.showOtplessFab(false);
+        otplessView.setCallback(this::onOtplessCallback, extras);
         otplessView.verifyIntent(getIntent());
 
         //calling otpless floater on a button click
@@ -116,23 +113,19 @@ private lateinit var otplessView: OtplessView
         val button1: Button = findViewById(R.id.button)
 
         // Initialise OtplessView
-        otplessView = OtplessManager.getInstance().getOtplessView(this)
-        val extras = JSONObject()
-        try {
-            extras.put("method", "get")
-            val params = JSONObject()
-            params.put("cid", "I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q") //add your own CID value (to get cid value visit otpless.com/platforms/android)
-            extras.put("params", params)
-
-            // parameter to enable autoclick
-            extras.put("uxmode", "anf")
-            // parameter to enable autoclick
-        } catch (e: JSONException) {
-            throw RuntimeException(e)
-        }
-        otplessView.setCallback(this::onOtplessCallback, extras)
-        otplessView.showOtplessFab(false)
-        otplessView.verifyIntent(intent)
+otplessView = OtplessManager.getInstance().getOtplessView(this)
+val extras = JSONObject().also {
+	it.put("method", "get")
+	val params = JSONObject()
+	params.put("cid", "YOUR_CID")
+	params.put("appId", "YOUR_APPID")
+        params.put("uxmode", "anf")         // this parameter is for autoclick
+	it.put("params", params)
+}
+otplessView.setCallback(this::onOtplessCallback, extras)
+otplessView.showOtplessLoginPage(extras, this::onOtplessCallback)
+// very important to call here, verification is done on low memory recreate case
+otplessView.verifyIntent(intent)
 
         // calling otpless floater on a button click
         button1.setOnClickListener {
