@@ -5,7 +5,7 @@ Integrating One Tap OTPLESS Sign In into your React Native Application using our
 1. Install **OTPless SDK** Dependency
 - In your app's build.gradle file, insert the following line into the dependencies section and sync your gradle
 ```gradle
-implementation 'io.github.otpless-tech:otpless-android-sdk:2.1.8'
+implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.4'
 ```
 
 2. Configure **AndroidManifest.xml**
@@ -48,17 +48,10 @@ import com.otpless.main.OtplessView;
 OtplessView otplessView;
 // Initialise OtplessView
 otplessView = OtplessManager.getInstance().getOtplessView(this);
-final JSONObject extras = new JSONObject();
-try {
-	extras.put("method", "get");
-	final JSONObject params = new JSONObject();
-	params.put("cid", "HRIRBIIKXMKEOTDDA8VV4HP2V24454X8");
-	extras.put("params", params);
-} catch (JSONException e) {
-	throw new RuntimeException(e);
-}
-otplessView.setCallback(this::onOtplessCallback, extras);
-otplessView.showOtplessLoginPage(extras, this::onOtplessCallback);
+OtplessRequest request = new OtplessRequest("ENUZ3TQ27B1GXG85FQQN")
+		.setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q");
+otplessView.setCallback(request, this::onOtplessCallback);
+otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
 otplessView.verifyIntent(getIntent());
 ```
 
@@ -86,16 +79,11 @@ import com.otpless.main.OtplessView;
 private lateinit var otplessView: OtplessView
 // Initialise OtplessView
 otplessView = OtplessManager.getInstance().getOtplessView(this)
-val extras = JSONObject().also {
-	it.put("method", "get")
-	val params = JSONObject()
-	params.put("cid", "HRIRBIIKXMKEOTDDA8VV4HP2V24454X8")
-	it.put("params", params)
-}
-otplessView.setCallback(this::onOtplessCallback, extras)
-otplessView.showOtplessLoginPage(extras, this::onOtplessCallback)
-// very important to call here, verification is done on low memory recreate case
-otplessView.verifyIntent(intent)
+OtplessRequest request =  OtplessRequest("ENUZ3TQ27B1GXG85FQQN")
+		.setCid("I9HXYP33C1K9Z61ZIF0MI1PY4VZOFX6Q")
+otplessView.setCallback(request, this::onOtplessCallback)
+otplessView.showOtplessLoginPage(request, this::onOtplessCallback)
+otplessView.verifyIntent(getIntent())
 ```
 
 - This code will be used to detect the WhatsApp installed status on the user's device.
