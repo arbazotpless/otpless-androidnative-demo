@@ -21,7 +21,7 @@ implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.8'
 <category android:name="android.intent.category.BROWSABLE" />
 <data
 	android:host="otpless"
-   android:scheme= "otpless.ri7mxa25ohagdhbxmfb1"/>  <!-- replace with your scheme provided in documentation-->
+   	android:scheme= "otpless.ri7mxa25ohagdhbxmfb1"/>  <!-- replace with your scheme provided in documentation-->
 </intent-filter>
 ```
 
@@ -48,7 +48,8 @@ import com.otpless.main.OtplessView;
 OtplessView otplessView;
   // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1"); //replace with your appid provided in documentation
+        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1") //replace with your appid provided in documentation
+				.addExtras("crossButtonHidden","true");   //use this parameter to hide cross button
         otplessView.setCallback(request, this::onOtplessCallback);
         otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
@@ -76,6 +77,7 @@ import com.otpless.main.OtplessView;
 ```java
 //Declare variable
 private lateinit var otplessView: OtplessView
+
 // Initialise OtplessView
 otplessView = OtplessManager.getInstance().getOtplessView(this)
 OtplessRequest request =  OtplessRequest("RI7MXA25OHAGDHBXMFB1")
