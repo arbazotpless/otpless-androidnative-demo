@@ -101,10 +101,9 @@ import com.otpless.main.OtplessView;
 
         button = findViewById(R.id.button)
 
-        // Initialise OtplessView
+       // Initialise OtplessView
 	otplessView = OtplessManager.getInstance().getOtplessView(this)
-	OtplessRequest request =  OtplessRequest("YOUR_APPID")  // replace with your appid provided in documentation
-			.setCid("YOUR_CID")                    // replace with your cid provided in documentation
+	OtplessRequest request =  OtplessRequest("RI7MXA25OHAGDHBXMFB1")
 	otplessView.setCallback(request, this::onOtplessCallback)
 	otplessView.verifyIntent(getIntent())
 
