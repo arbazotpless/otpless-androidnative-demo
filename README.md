@@ -21,7 +21,7 @@ implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.4'
 <category android:name="android.intent.category.BROWSABLE" />
 <data
 	android:host="otpless"
-	android:scheme= "${applicationId}.otpless"/>
+   android:scheme= "otpless.ri7mxa25ohagdhbxmfb1"/>  <!-- replace with your scheme provided in documentation-->
 </intent-filter>
 ```
 
