@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private Button otpverify,whatsappButton,gmailButton,twitterButton,slackButton,facebookButton,linkedinButton,microsoftButton;
 
 
-    final HeadlessRequest request = new HeadlessRequest("OQKCVGB7H42IZPVUMX7P"); //replace with your appid provided in documentation
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private HeadlessRequest getHeadlessRequest() {
+        final HeadlessRequest request = new HeadlessRequest("OQKCVGB7H42IZPVUMX7P"); //replace with your appid provided in documentation
         final String input = inputEditText.getText().toString();
 
         if (this.channelType != null) {
