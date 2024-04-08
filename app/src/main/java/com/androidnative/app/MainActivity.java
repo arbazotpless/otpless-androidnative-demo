@@ -55,20 +55,19 @@ public class MainActivity extends AppCompatActivity {
         microsoftButton = findViewById(R.id.microsoft_btn);
         headlessResponseTv = findViewById(R.id.headless_response_tv);
 
-        initTestingView();
+
         // copy this code in onCreate of your Login Activity
         otplessView = OtplessManager.getInstance().getOtplessView(this);
         otplessView.setHeadlessCallback(getHeadlessRequest(), this::onHeadlessCallback);
-        otpverify.setOnClickListener(v -> {
-            otplessView.startHeadless(getHeadlessRequest(), this::onHeadlessCallback);
-        });
         otplessView.verifyIntent(getIntent());
+
+
+        initTestingView();
     }
 
     private HeadlessRequest getHeadlessRequest() {
         final HeadlessRequest request = new HeadlessRequest("OQKCVGB7H42IZPVUMX7P"); //replace with your appid provided in documentation
         final String input = inputEditText.getText().toString();
-
         if (this.channelType != null) {
             request.setChannelType(this.channelType);
         }else {
@@ -92,7 +91,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initTestingView() {
-
+        otpverify.setOnClickListener(view -> {
+            otplessView.startHeadless(getHeadlessRequest(), this::onHeadlessCallback);
+        });
         // This code will be used to detect the WhatsApp installed status on the user's device.
         if (Utility.isWhatsAppInstalled(this)) {
             whatsappButton.setVisibility(View.VISIBLE);
@@ -100,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
             whatsappButton.setVisibility(View.GONE);
         }
         //end
-
         whatsappButton.setOnClickListener(view -> {
             channelType = HeadlessChannelType.WHATSAPP;
             otplessView.startHeadless(getHeadlessRequest(), this::onHeadlessCallback);
