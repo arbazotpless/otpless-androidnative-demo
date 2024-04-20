@@ -1,13 +1,10 @@
 package com.androidnative.app;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -37,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private Button otpverify,whatsappButton,gmailButton,twitterButton,slackButton,facebookButton,linkedinButton,microsoftButton;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         inputEditText = findViewById(R.id.input_text_layout);
         otpEditText = findViewById(R.id.otp_et);
@@ -58,16 +55,19 @@ public class MainActivity extends AppCompatActivity {
 
         // copy this code in onCreate of your Login Activity
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        otplessView.setHeadlessCallback(getHeadlessRequest(), this::onHeadlessCallback);
+        otplessView.initHeadless("OQKCVGB7H42IZPVUMX7P", savedInstanceState); //replace with your appid provided in documentation
+        otplessView.setHeadlessCallback(this::onHeadlessCallback);
         otplessView.verifyIntent(getIntent());
 
 
         initTestingView();
+
+
     }
 
     private HeadlessRequest getHeadlessRequest() {
-        final HeadlessRequest request = new HeadlessRequest("OQKCVGB7H42IZPVUMX7P"); //replace with your appid provided in documentation
         final String input = inputEditText.getText().toString();
+        final HeadlessRequest request = new HeadlessRequest();
         if (this.channelType != null) {
             request.setChannelType(this.channelType);
         }else {
@@ -134,9 +134,11 @@ public class MainActivity extends AppCompatActivity {
         microsoftButton.setOnClickListener(view -> {
             channelType = HeadlessChannelType.MICROSOFT;
             otplessView.startHeadless(getHeadlessRequest(), this::onHeadlessCallback);
-        });
-    }
 
+        });
+
+
+    }
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
