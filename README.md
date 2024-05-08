@@ -5,7 +5,7 @@ Integrating One Tap OTPLESS Sign In into your React Native Application using our
 1. Install **OTPless SDK** Dependency
 - In your app's build.gradle file, insert the following line into the dependencies section and sync your gradle
 ```gradle
-implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.8'
+implementation 'io.github.otpless-tech:otpless-android-sdk:2.3.0'
 ```
 
 2. Configure **AndroidManifest.xml**
@@ -21,7 +21,7 @@ implementation 'io.github.otpless-tech:otpless-android-sdk:2.2.8'
 <category android:name="android.intent.category.BROWSABLE" />
 <data
 	android:host="otpless"
-   	android:scheme= "otpless.ri7mxa25ohagdhbxmfb1"/>  <!-- replace with your scheme provided in documentation-->
+   	android:scheme= "otpless.appid_in_lowercase"/>  <!-- replace with your scheme provided in documentation-->
 </intent-filter>
 ```
 
@@ -38,6 +38,7 @@ android:exported="true"
 
 `Java`
 ```java
+import com.otpless.dto.OtplessRequest;
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
@@ -48,8 +49,8 @@ import com.otpless.main.OtplessView;
 OtplessView otplessView;
   // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        OtplessRequest request = new OtplessRequest("RI7MXA25OHAGDHBXMFB1") //replace with your appid provided in documentation
-				.addExtras("crossButtonHidden","true");   //use this parameter to hide cross button
+        OtplessRequest request = new OtplessRequest("appid_in_uppercase")
+				 .addExtras("crossButtonHidden","true");
         otplessView.setCallback(request, this::onOtplessCallback);
         otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
@@ -69,6 +70,7 @@ if (Utility.isWhatsAppInstalled(this)) {
 
 `Kotlin`
 ```kotlin
+import com.otpless.dto.OtplessRequest;
 import com.otpless.dto.OtplessResponse;
 import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
@@ -80,7 +82,8 @@ private lateinit var otplessView: OtplessView
 
 // Initialise OtplessView
 otplessView = OtplessManager.getInstance().getOtplessView(this)
-OtplessRequest request =  OtplessRequest("RI7MXA25OHAGDHBXMFB1")
+OtplessRequest request =  OtplessRequest("appid_in_uppercase")
+			.addExtras("crossButtonHidden","true");
 otplessView.setCallback(request, this::onOtplessCallback)
 otplessView.showOtplessLoginPage(request, this::onOtplessCallback)
 otplessView.verifyIntent(getIntent())
