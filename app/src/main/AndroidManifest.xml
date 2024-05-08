@@ -34,7 +34,7 @@
 
                 <data
                     android:host="otpless"
-                    android:scheme="${applicationId}.otpless" />
+                    android:scheme= "otpless.b6j87fbdndyrmqd64y7i"/><!--replace with your appid provided in docs-->
             </intent-filter>
         </activity>
     </application>
