@@ -28,10 +28,8 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="otpless"
                     android:scheme= "otpless.ri7mxa25ohagdhbxmfb1"/> <!-- replace with your scheme provided in documentation-->
