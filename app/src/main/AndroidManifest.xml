@@ -24,16 +24,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="otpless"
                     android:scheme= "otpless.oqkcvgb7h42izpvumx7p"/>  <!--replace with your scheme provided in documentation-->
             </intent-filter>
+
         </activity>
     </application>
 
