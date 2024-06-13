@@ -5,7 +5,7 @@ Integrating One Tap OTPLESS Sign In into your React Native Application using our
 1. Install **OTPless SDK** Dependency
 - In your app's build.gradle file, insert the following line into the dependencies section and sync your gradle
 ```gradle
-implementation 'io.github.otpless-tech:otpless-android-sdk:2.3.0'
+implementation 'io.github.otpless-tech:otpless-android-sdk:2.3.3'
 ```
 
 2. Configure **AndroidManifest.xml**
