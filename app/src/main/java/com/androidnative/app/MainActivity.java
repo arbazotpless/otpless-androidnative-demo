@@ -13,8 +13,6 @@ import com.otpless.main.OtplessManager;
 import com.otpless.main.OtplessView;
 import com.otpless.utils.Utility;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     OtplessView otplessView;

@@ -28,10 +28,8 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="otpless"
                     android:scheme= "otpless.b6j87fbdndyrmqd64y7i"/><!--replace with your appid provided in docs-->
