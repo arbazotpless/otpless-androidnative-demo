@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.otpless.dto.OtplessRequest;
@@ -16,12 +18,15 @@ import com.otpless.utils.Utility;
 
 public class MainActivity extends AppCompatActivity {
     OtplessView otplessView;
+    Button button, button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        button = findViewById(R.id.button);
+        button2 = findViewById(R.id.button2);
 
         //******************************************************** */
         //This function will tell if WhatsApp is Installed or not.
@@ -41,9 +46,25 @@ public class MainActivity extends AppCompatActivity {
         OtplessRequest request = new OtplessRequest("B6J87FBDNDYRMQD64Y7I")
                 .addExtras("crossButtonHidden","true");
         otplessView.setCallback(request, this::onOtplessCallback);
-        otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
         otplessView.verifyIntent(getIntent());
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otplessView.showOtplessLoginPage(request, response -> onOtplessCallback(response));
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
 
     private void onOtplessCallback(OtplessResponse response) {
         if (response.getErrorMessage() != null) {
@@ -53,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
     // todo token verification with api
             Log.d("Otpless", "token: " + token);
             Toast.makeText(this, "Token : " + token, Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(), SecondActivity.class);
-            i.putExtra("passing_token", token);
-            startActivity(i);
+//            Intent i = new Intent(getApplicationContext(), SecondActivity.class);
+//            i.putExtra("passing_token", token);
+//            startActivity(i);
         }
     }
 
