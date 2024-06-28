@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         // copy this code in onCreate of your Login Activity
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        otplessView.initHeadless("OQKCVGB7H42IZPVUMX7P", savedInstanceState); //replace with your appid provided in documentation
+        otplessView.initHeadless("OQKCVGB7H42IZPVUMX7P"); //replace with your appid provided in documentation
         otplessView.setHeadlessCallback(this::onHeadlessCallback);
-        otplessView.verifyIntent(getIntent());
+        otplessView.onNewIntent(getIntent());
 
 
         initTestingView();
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        otplessView.verifyIntent(intent);
+        otplessView.onNewIntent(intent);
     }
 
     private void onHeadlessCallback(@NonNull final HeadlessResponse response) {
