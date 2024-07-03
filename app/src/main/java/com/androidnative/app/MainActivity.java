@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialise OtplessView
         otplessView = OtplessManager.getInstance().getOtplessView(this);
-        OtplessRequest request = new OtplessRequest("B6J87FBDNDYRMQD64Y7I")
+        OtplessRequest request = new OtplessRequest("NJMBH4C6A0EB5I067H6J")
                 .addExtras("crossButtonHidden","true");
         otplessView.setCallback(request, this::onOtplessCallback);
         otplessView.showOtplessLoginPage(request, this::onOtplessCallback);
-        otplessView.verifyIntent(getIntent());
+        otplessView.onNewIntent(getIntent());
     }
 
     private void onOtplessCallback(OtplessResponse response) {
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (otplessView != null) {
-            otplessView.verifyIntent(intent);
+            otplessView.onNewIntent(intent);
         }
     }
     @Override

@@ -32,7 +32,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
                     android:host="otpless"
-                    android:scheme= "otpless.b6j87fbdndyrmqd64y7i"/><!--replace with your appid provided in docs-->
+                    android:scheme= "otpless.njmbh4c6a0eb5i067h6j"/><!--replace with your appid provided in docs-->
             </intent-filter>
         </activity>
     </application>
